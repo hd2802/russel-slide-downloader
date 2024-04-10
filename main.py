@@ -3,7 +3,7 @@ import requests
 import time
 from bs4 import BeautifulSoup
 from fix import fix
-from merger import merger
+from PyPDF2 import PdfWriter
 from urllib.parse import urljoin
 
 target_url = "https://people.bath.ac.uk/masrjb/CourseNotes/cm20318.html"
@@ -30,7 +30,7 @@ def download_slides(url):
             fix_filename = os.path.join(folder_location, os.path.splitext(os.path.basename(link['href']))[0] + '_fix.pdf')
 
             fixed_slides.append(fix_filename)
-            
+
             # If the file already exists or if the fixed version already exists, no download is required
             # Currently does not work! - fix!
             if not os.path.isfile(filename) and not os.path.isfile(fix_filename):
@@ -50,10 +50,19 @@ def fix_slides():
             fix(slide)
             os.remove(slide)
 
+def merger(pdfs):
+    writer = PdfWriter()
+
+    for pdf in pdfs:
+        writer.append(pdf)
+    
+    writer.write("slides.pdf")
+    writer.close()
+
 if __name__ == "__main__":
     start = time.time()
     download_slides(target_url)
     fix_slides()
-    merger(slides)
+    merger(fixed_slides)
     end = time.time()
     print("Execution time: ", end - start, " seconds")

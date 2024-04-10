@@ -2,11 +2,6 @@ from PyPDF2 import PdfReader, PdfWriter
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-# Reads each slide once and stores in the dictionary
-# This allows:
-#   O(n) creation time
-#   O(1) fetching time
-# Much better compared to reading each time a page is needed
 page_dict = {}
 
 def read_pdf(pdf_name):
@@ -15,6 +10,7 @@ def read_pdf(pdf_name):
         buffer = reader.pages[i].extract_text()
         page_dict[i] = buffer
 
+# Uses cosine similarity and a dif matrix to compare the differences between them
 def cosine_similarity_matrix(pages):
     vectorizer = TfidfVectorizer()
     tfidf_matrix = vectorizer.fit_transform(pages)
@@ -23,6 +19,7 @@ def cosine_similarity_matrix(pages):
 
 def fix(pdf_name):
     read_pdf(pdf_name)
+
     # Using a set avoids the possibility of duplicate pages
     pages_to_remove = set()
 
