@@ -61,8 +61,13 @@ def merger(pdfs):
 
 if __name__ == "__main__":
     start = time.time()
+
     download_slides(target_url)
+
     fix_slides()
+
+    # Remove this line if you don't want a total merged pdf at the end
     merger(fixed_slides)
+
     end = time.time()
     print("Execution time: ", end - start, " seconds")
