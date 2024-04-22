@@ -32,7 +32,6 @@ def download_slides(url):
             fixed_slides.append(fix_filename)
 
             # If the file already exists or if the fixed version already exists, no download is required
-            # Currently does not work! - fix!
             if not os.path.isfile(filename) and not os.path.isfile(fix_filename):
                 slides.append(filename)
                 with open(filename, 'wb') as f:
