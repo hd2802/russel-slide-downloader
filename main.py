@@ -6,6 +6,7 @@ from fix import fix
 from PyPDF2 import PdfWriter
 from urllib.parse import urljoin
 
+# insert url of desired Russel module here
 target_url = "https://people.bath.ac.uk/masrjb/CourseNotes/cm20318.html"
 
 slides = []
@@ -17,7 +18,11 @@ def download_slides(url):
 
     links = soup.find_all('a')
 
-    folder_location = os.getcwd() + "/slides"
+    # comment out if using windows
+    #folder_location = os.getcwd() + "/slides"
+
+    # comment out if using mac
+    folder_location = os.getcwd() + "\slides"
     if not os.path.exists(folder_location): os.mkdir(folder_location)
 
     i = 0
