@@ -27,6 +27,7 @@ def download_slides(url):
 
     if platform.system() == "Linux":
         folder_location = os.getcwd().replace("slide-downloader", "") + "\slides"
+        
     if not os.path.exists(folder_location): os.mkdir(folder_location)
 
     i = 0
@@ -52,7 +53,6 @@ def fix_slides():
     i = 0
     for slide in slides:
         if os.path.isfile(slide):
-            # Printing this causes the program to run slower!
             i += 1
             print("Fixing file #" + str(i))
             fix(slide)
