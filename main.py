@@ -1,4 +1,5 @@
 import os
+import platform
 import requests
 import time
 from bs4 import BeautifulSoup
@@ -18,11 +19,14 @@ def download_slides(url):
 
     links = soup.find_all('a')
 
-    # comment out if using windows
-    #folder_location = os.getcwd() + "/slides"
+    if platform.system() == "Darwin":
+        folder_location = os.getcwd().replace("slide-downloader", "") + "/slides"
 
-    # comment out if using mac
-    folder_location = os.getcwd() + "\slides"
+    if platform.system() == "Windows":
+        folder_location = os.getcwd().replace("slide-downloader", "") + "\slides"
+
+    if platform.system() == "Linux":
+        folder_location = os.getcwd().replace("slide-downloader", "") + "\slides"
     if not os.path.exists(folder_location): os.mkdir(folder_location)
 
     i = 0
